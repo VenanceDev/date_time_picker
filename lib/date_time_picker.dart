@@ -619,7 +619,7 @@ class _DateTimePickerState extends FormFieldState<String> {
       }
     }
 
-    if (_effectiveController?.text != null &&
+    if (_effectiveController != null &&
         _effectiveController?.text != '') {
       final lsValue = _effectiveController?.text.trim();
 
@@ -700,7 +700,7 @@ class _DateTimePickerState extends FormFieldState<String> {
     if (_effectiveController?.text != value) {
       didChange(_effectiveController?.text);
     }
-    if (_effectiveController?.text != '') {
+    if (_effectiveController!.text != '') {
       clearTextField();
     }
   }
