@@ -133,7 +133,7 @@ class DateTimePicker extends FormField<String> {
   /// to [initialValue] or the empty string.
   ///
   /// For documentation about the various parameters, see the [TextField] class
-  /// and [new TextField], the constructor.
+  /// and [TextField], the constructor.
   DateTimePicker({
     Key? key,
     this.type = DateTimePickerType.date,
@@ -234,7 +234,7 @@ class DateTimePicker extends FormField<String> {
               : AutovalidateMode.disabled,
           enabled: enabled,
           builder: (FormFieldState<String> field) {
-            final state = field as _DateTimePickerState;
+            final state = field as DateTimePickerState;
 
             void onChangedHandler(String value) {
               if (onChanged != null) {
@@ -510,10 +510,10 @@ class DateTimePicker extends FormField<String> {
   final ValueChanged<String>? onChanged;
 
   @override
-  _DateTimePickerState createState() => _DateTimePickerState();
+  DateTimePickerState createState() => DateTimePickerState();
 }
 
-class _DateTimePickerState extends FormFieldState<String> {
+class DateTimePickerState extends FormFieldState<String> {
   TextEditingController? _stateController;
   final TextEditingController _dateLabelController = TextEditingController();
   final TextEditingController _timeLabelController = TextEditingController();
@@ -537,7 +537,7 @@ class _DateTimePickerState extends FormFieldState<String> {
     if (widget.controller == null) {
       _stateController = TextEditingController(text: widget.initialValue);
     } else {
-      widget.controller?.addListener(_handleControllerChanged);
+      widget.controller!.addListener(_handleControllerChanged);
     }
 
     initValues();
@@ -602,12 +602,12 @@ class _DateTimePickerState extends FormFieldState<String> {
     final languageCode = widget.locale?.languageCode;
 
     if (widget.controller != oldWidget.controller) {
-      oldWidget.controller?.removeListener(_handleControllerChanged);
-      widget.controller?.addListener(_handleControllerChanged);
+      oldWidget.controller!.removeListener(_handleControllerChanged);
+      widget.controller!.addListener(_handleControllerChanged);
 
       if (oldWidget.controller != null && widget.controller == null) {
         _stateController =
-            TextEditingController.fromValue(oldWidget.controller?.value);
+            TextEditingController.fromValue(oldWidget.controller!.value);
       }
 
       if (widget.controller != null) {
@@ -619,8 +619,7 @@ class _DateTimePickerState extends FormFieldState<String> {
       }
     }
 
-    if (_effectiveController != null &&
-        _effectiveController?.text != '') {
+    if (_effectiveController != null && _effectiveController?.text != '') {
       final lsValue = _effectiveController?.text.trim();
 
       if (lsValue != null && lsValue != '' && lsValue != 'null') {
@@ -675,7 +674,7 @@ class _DateTimePickerState extends FormFieldState<String> {
 
   @override
   void dispose() {
-    widget.controller?.removeListener(_handleControllerChanged);
+    widget.controller!.removeListener(_handleControllerChanged);
 
     super.dispose();
   }
@@ -700,7 +699,7 @@ class _DateTimePickerState extends FormFieldState<String> {
     if (_effectiveController?.text != value) {
       didChange(_effectiveController?.text);
     }
-    if (_effectiveController!.text != '') {
+    if (_effectiveController?.text == '') {
       clearTextField();
     }
   }
@@ -755,7 +754,7 @@ class _DateTimePickerState extends FormFieldState<String> {
 
       _sValue = _sValue.trim();
       _dateLabelController.text = lsFormatedDate;
-      _effectiveController?.text = _sValue;
+      _effectiveController!.text = _sValue;
 
       if (_sValue != lsOldValue) {
         onChangedHandler(_sValue);
@@ -817,7 +816,7 @@ class _DateTimePickerState extends FormFieldState<String> {
       }
 
       _sValue = _sValue.trim();
-      _effectiveController?.text = _sValue;
+      _effectiveController!.text = _sValue;
 
       if (_sValue != lsOldValue) {
         onChangedHandler(_sValue);
@@ -915,7 +914,7 @@ class _DateTimePickerState extends FormFieldState<String> {
       }
 
       _dateLabelController.text = lsFormatedDate;
-      _effectiveController?.text = _sValue;
+      _effectiveController!.text = _sValue;
 
       if (_sValue != lsOldValue) {
         onChangedHandler(_sValue);
