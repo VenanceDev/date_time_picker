@@ -669,10 +669,7 @@ class _DateTimePickerState extends FormFieldState<String> {
         }
       }
     } else {
-      _dateLabelController.clear();
-      _timeLabelController.clear();
-
-      initValues();
+      clearTextField();
     }
   }
 
@@ -692,9 +689,19 @@ class _DateTimePickerState extends FormFieldState<String> {
     });
   }
 
+  void clearTextField() {
+    _dateLabelController.clear();
+    _timeLabelController.clear();
+
+    initValues();
+  }
+
   void _handleControllerChanged() {
     if (_effectiveController?.text != value) {
       didChange(_effectiveController?.text);
+    }
+    if (_effectiveController?.text != '') {
+      clearTextField();
     }
   }
 
