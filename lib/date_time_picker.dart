@@ -289,8 +289,7 @@ class DateTimePicker extends FormField<String> {
                   Theme.of(field.context).inputDecorationTheme,
                 );
 
-              return TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+              return TextField(
                 readOnly: true,
                 onTap: readOnly ? null : lfOnTap,
                 controller: loCtrl,
@@ -327,7 +326,7 @@ class DateTimePicker extends FormField<String> {
                 maxLength: maxLength,
                 onChanged: onChangedHandler,
                 onEditingComplete: onEditingComplete,
-                onFieldSubmitted: onFieldSubmitted,
+                onSubmitted: onFieldSubmitted,
                 inputFormatters: inputFormatters,
                 enabled: enabled,
                 cursorWidth: cursorWidth,
