@@ -191,6 +191,7 @@ class DateTimePicker extends FormField<String> {
     bool expands = false,
     int? maxLength,
     this.onChanged,
+    this.forceOnChangedTrigger = false,
     VoidCallback? onEditingComplete,
     ValueChanged<String>? onFieldSubmitted,
     FormFieldSetter<String>? onSaved,
@@ -509,6 +510,14 @@ class DateTimePicker extends FormField<String> {
 
   final ValueChanged<String>? onChanged;
 
+  /// Per default as the code is right now, the [onChanged] callback is only triggered
+  /// when a different value was selected (that is, the value actually changed).
+  /// But this flag is used to force [onChanged] to trigger any time we confirm
+  /// the picker value. (It  does not matter if selected values is different or not)
+  ///
+  /// This value is `false` per default
+  final bool forceOnChangedTrigger;
+
   @override
   DateTimePickerState createState() => DateTimePickerState();
 }
@@ -756,7 +765,7 @@ class DateTimePickerState extends FormFieldState<String> {
       _dateLabelController.text = lsFormatedDate;
       _effectiveController!.text = _sValue;
 
-      if (_sValue != lsOldValue) {
+      if (widget.forceOnChangedTrigger || _sValue != lsOldValue) {
         onChangedHandler(_sValue);
       }
     }
@@ -818,7 +827,7 @@ class DateTimePickerState extends FormFieldState<String> {
       _sValue = _sValue.trim();
       _effectiveController!.text = _sValue;
 
-      if (_sValue != lsOldValue) {
+      if (widget.forceOnChangedTrigger || _sValue != lsOldValue) {
         onChangedHandler(_sValue);
       }
     }
@@ -916,7 +925,7 @@ class DateTimePickerState extends FormFieldState<String> {
       _dateLabelController.text = lsFormatedDate;
       _effectiveController!.text = _sValue;
 
-      if (_sValue != lsOldValue) {
+      if (widget.forceOnChangedTrigger || _sValue != lsOldValue) {
         onChangedHandler(_sValue);
       }
     }
